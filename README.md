@@ -51,6 +51,8 @@ This repository is meant to help anyone learn Docker from scratch and grow towar
   sudo systemctl enable docker
 
 ## 4. Basic Docker Commands
+
+```bash
 # Check Docker version
 docker --version
 
@@ -58,17 +60,19 @@ docker --version
 docker run hello-world
 
 # List containers
-docker ps            # running
-docker ps -a         # all (including stopped)
+docker ps
+docker ps -a
 
 # Stop and remove container
-docker stop <id>
-docker rm <id>
+docker stop <container-id>
+docker rm <container-id>
 
 # List images
 docker images
+```
 
 ## 5. Working with Images
+```bash
 # Pull image
 docker pull nginx
 
@@ -77,8 +81,10 @@ docker build -t myapp:1.0 .
 
 # Remove image
 docker rmi <image-id>
+```
 
 ## 6. Working with Containers
+```bash
 # Run container
 docker run -d -p 8080:80 nginx
 
@@ -87,17 +93,23 @@ docker exec -it <id> bash
 
 # View logs
 docker logs <id>
+```
 
 ## 7. Docker Volumes
+```bash
 docker volume create mydata
 docker run -v mydata:/data busybox
+```
 
 ## 8. Docker Networks
+```bash
 docker network create mynet
 docker run -d --network=mynet --name=db mysql
 docker run -d --network=mynet --name=webapp nginx
+```
 
 ## 9. Docker Compose
+```bash
 version: '3'
 services:
   db:
@@ -108,8 +120,10 @@ services:
     image: nginx
     ports:
       - "8080:80"
+```
 
 ## 10. Dockerfile
+```bash
 # Use base image
 FROM node:18
 
@@ -126,6 +140,7 @@ EXPOSE 3000
 
 # Start app
 CMD ["npm", "start"]
+```
 
 ## 11. Best Practices
 - Use .dockerignore to reduce image size.
