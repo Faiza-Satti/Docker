@@ -34,12 +34,23 @@ This repository is meant to help anyone learn Docker from scratch and grow towar
 ---
 
 ## 2. Why Docker?
-- Consistency: "Works on my machine" problem solved.  
-- Portability: Run apps anywhere (Windows, Linux, Mac, cloud).  
-- Efficiency: Uses fewer resources than VMs.  
-- Scalability: Easy to scale up microservices.
+Docker is a platform designed to simplify the process of building, deploying, and running applications using containerization. It packages software and its dependencies into standardized units called containers.
+- Docker uses host's OS and memory system, making it leighweight.
+- Docker image sizes are that's why in MBs.
+
+### What did devs use before docker?
+- Manual Server Setup and Configuration
+- Virtual Machines (VMs)
+- Shell Scripts for Deployment
 
 ---
+
+## Docker Components
+Key components of Docker include:
+- Docker Engine: The core runtime environment for containers.
+- Docker Images: Read-only templates that contain the application code, libraries, and dependencies needed to run application.
+- Docker Daemon: A background process that manages Docker containers.
+- Docker Registry (e.g., Docker Hub, Azure Container Registry, Harbor): A repository for storing and sharing Docker images.
 
 ## 3. Installing Docker
 - [Download Docker Desktop](https://www.docker.com/products/docker-desktop) for Windows/Mac.  
