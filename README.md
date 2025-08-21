@@ -27,7 +27,7 @@ This repository is meant to help anyone learn Docker from scratch and grow towar
 ---
 
 ## 1. Introduction to Containers
-- A **container** is a lightweight, portable unit that packages code, runtime, system tools, and libraries.  
+- A **container** is a lightweight, standalone, and executable software package that includes everything needed to run a piece of software.
 - Think of it as a **virtual environment**, but faster and isolated.  
 - Containers run on the **same OS kernel** but are isolated from each other.
 
