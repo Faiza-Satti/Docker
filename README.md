@@ -259,9 +259,11 @@ CMD ["npm", "start"]
 ---
 
 ## 14. Debugging & Logs
+```bash
 docker logs <container>
 docker inspect <container>
 docker exec -it <container> sh
+```
 
 ---
 
