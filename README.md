@@ -310,3 +310,6 @@ docker exec -it <container> sh
 - Run as non-root user.
 - Scan images for vulnerabilities (docker scan).
 - Keep images minimal.
+
+I recommend a book as a docker learning resource : **Docker Deep Dive by Nigel Poulton**.
+Never stop learning ✨
