@@ -46,11 +46,54 @@ Docker is a platform designed to simplify the process of building, deploying, an
 ---
 
 ## Docker Components
-Key components of Docker include:
-- Docker Engine: The core runtime environment for containers.
-- Docker Images: Read-only templates that contain the application code, libraries, and dependencies needed to run application.
-- Docker Daemon: A background process that manages Docker containers.
-- Docker Registry (e.g., Docker Hub, Azure Container Registry, Harbor): A repository for storing and sharing Docker images.
+Docker is built around a few key components that work together to enable containerization:
+
+---
+
+### 1. Docker Engine
+- **What it is:** The **core runtime environment** that makes Docker work.  
+- **How it works:** It provides the client-server architecture where:
+  - **Docker CLI (Client):** Runs commands like `docker run`, `docker build`.  
+  - **Docker Daemon (Server):** Listens for commands from the client and manages container lifecycle.  
+- **Purpose:** The “brain” of Docker that makes containerization possible.
+
+---
+
+### 2. Docker Images
+- **What it is:** A **read-only template** that contains everything needed to run an application (source code, runtime, libraries, environment variables, configs).  
+- **Layers:** Images are built in layers (using `Dockerfile` instructions like `FROM`, `RUN`, `COPY`).  
+- **Immutable:** Once built, an image doesn’t change. If you need changes, you create a new image version.  
+- **Usage:** Containers are created **from images**.  
+
+Example:
+```bash
+docker build -t myapp:1.0 .
+docker run myapp:1.0
+```
+
+### 3. Docker Daemon (dockerd)
+- **What it is:** A background service that runs on the host machine.
+- Responsibilities:
+  - Builds, runs, and distributes Docker containers.
+  - Talks to the Docker CLI.
+  - Manages images, networks, and volumes.
+- Communication: The CLI communicates with the daemon using REST API calls over a Unix socket (/var/run/docker.sock) or TCP.
+
+### 4. Docker Registry
+- **What it is:** A storage system for Docker images.
+- Types:
+  - Public Registry: Docker Hub (default registry).
+  - Private Registries: Azure Container Registry (ACR), AWS ECR, Harbor, GitHub Container Registry, etc.
+- Workflow:
+  - Push: Upload your built images (docker push myapp:1.0).
+  - Pull: Download images when running containers (docker pull mysql:1.25).
+- Benefit: Makes sharing and reusing images easy across teams and environments.
+
+### Putting it Together
+- You write a Dockerfile → build an image.
+- Image is stored locally or in a registry.
+- You use Docker CLI to tell Docker Engine to start a container.
+- Docker Daemon runs that container using the image.
 
 ## 3. Installing Docker
 - [Download Docker Desktop](https://www.docker.com/products/docker-desktop) for Windows/Mac.  
@@ -61,8 +104,24 @@ Key components of Docker include:
   sudo systemctl start docker
   sudo systemctl enable docker
 
-## 4. Basic Docker Commands
+## One Dockerfile, Multiple Containers
+- A single Dockerfile defines how an image is built (dependencies, environment, commands).
+- Once built, you can create as many containers as you want from that same image.
+```bash
+# Build an image from Dockerfile
+docker build -t myapp:1.0 .
 
+# Run multiple containers from the same image
+docker run -d -p 3000:3000 --name app1 myapp:1.0
+docker run -d -p 3001:3000 --name app2 myapp:1.0
+docker run -d -p 3002:3000 --name app3 myapp:1.0
+```
+
+- myapp:1.0 is one image (built from one Dockerfile).
+- app1, app2, app3 are three containers running independently.
+- Containers share the same base image but run in isolated environments.
+
+## 4. Basic Docker Commands
 ```bash
 # Check Docker version
 docker --version
@@ -104,6 +163,35 @@ docker exec -it <id> bash
 
 # View logs
 docker logs <id>
+```
+---
+
+## 7. Docker Image Tags
+Docker images are versioned and identified using **tags**. By default, if you don’t specify a tag, Docker uses `:latest`.
+
+### Examples:
+```bash
+# Pull the latest nginx image
+docker pull nginx
+
+# Pull a specific version of nginx
+docker pull nginx:1.25
+
+# Run a container from a tagged image
+docker run -d nginx:1.25
+
+# Tag a local image before pushing
+docker tag myapp:1.0 faizi/myapp:1.0
+```
+### Remote Tags
+- Docker images live in registries (like Docker Hub, AWS ECR, GCP Artifact Registry).
+- A remote tag usually includes the registry, namespace (username/org), image name, and tag.
+
+### Example
+```bash
+# Pull from Docker Hub (default registry)
+docker pull library/redis:7
+#Good practice: Always use explicit tags (like 1.25, 2.0.1) instead of latest for production.
 ```
 
 ## 7. Docker Volumes
