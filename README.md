@@ -1,7 +1,6 @@
 # Docker Notes
 
-A complete beginner-to-advanced guide on Docker.  
-This repository is meant to help anyone learn Docker from scratch and grow towards advanced concepts.
+These are notes I made while learning from various resources. Feel free to correct me or provide feedback. I believe it's never too late to start again as a beginner. 🙂
 
 ---
 
