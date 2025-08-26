@@ -214,17 +214,48 @@ docker run -d --network=mynet --name=webapp nginx
 ---
 
 ## 11. Docker Compose
-```bash
-version: '3'
+**Docker Compose** is a tool that helps you define and run multi-container Docker applications. Instead of starting containers manually with long `docker run` commands, you describe your app’s services (databases, backends, frontends, etc.) in a **`docker-compose.yml`** file and run them with a single command.
+
+### Key Features
+- **Multi-container management**: Define multiple services (e.g., web app + database + cache) in one YAML file.  
+- **Service isolation**: Each service runs in its own container, but they can easily communicate via Docker’s network.  
+- **Declarative syntax**: Everything is defined in `docker-compose.yml`, making it reproducible and version-controlled.  
+- **Environment support**: Use `.env` files for configuration and secrets.  
+- **Scaling**: You can scale services (e.g., multiple web instances) using `docker-compose up --scale`.  
+
+### Common Commands
+- `docker-compose up` → Start all services (build images if needed).  
+- `docker-compose up -d` → Start in detached (background) mode.  
+- `docker-compose down` → Stop and remove containers, networks, volumes.  
+- `docker-compose build` → Build/rebuild services.  
+- `docker-compose logs -f` → Stream logs from all services.  
+- `docker-compose ps` → List running services.  
+
+### Example `docker-compose.yml`
+```yaml
+version: "3.8"
+
 services:
-  db:
-    image: mysql:5.7
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-  web:
-    image: nginx
+  app:
+    build: .
     ports:
-      - "8080:80"
+      - "5000:5000"
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+
+  db:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydb
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
 ```
 ---
 
