@@ -5,25 +5,23 @@ This repository is meant to help anyone learn Docker from scratch and grow towar
 
 ---
 
-## 📖 Table of Contents
-1. [Introduction to Containers](#introduction-to-containers)
-2. [Why Docker?](#why-docker)
-3. [Installing Docker](#installing-docker)
-4. [Basic Docker Commands](#basic-docker-commands)
-5. [Working with Images](#working-with-images)
-6. [Working with Containers](#working-with-containers)
-7. [Docker Volumes](#docker-volumes)
-8. [Docker Networks](#docker-networks)
-9. [Docker Compose](#docker-compose)
-10. [Dockerfile](#dockerfile)
-11. [Best Practices](#best-practices)
-12. [Debugging & Logs](#debugging--logs)
-13. [Real-world Use Cases](#real-world-use-cases)
-14. [Docker Swarm](#docker-swarm)
-15. [Kubernetes Intro](#kubernetes-intro)
-16. [Security & Optimization](#security--optimization)
-17. [Resources & Learning](#resources--learning)
-
+## Table of Contents
+1. [Introduction to Containers](#1-introduction-to-containers)
+2. [Why Docker?](#2-why-docker)
+3. [Docker Components](#3-docker-components)
+4. [Installing Docker](#4-installing-docker)
+5. [Basic Docker Commands](#5-basic-docker-commands)
+6. [Working with Images](#6-working-with-images)
+7. [Working with Containers](#7-working-with-containers)
+8. [Docker Image Tags](#8-docker-image-tags)
+9. [Docker Volumes](#9-docker-volumes)
+10. [Docker Networks](#10-docker-networks)
+11. [Docker Compose](#11-docker-compose)
+12. [Dockerfile](#12-dockerfile)
+13. [Best Practices](#13-best-practices)
+14. [Debugging & Logs](#14-debugging--logs)
+15. [Real-world Use Cases](#15-real-world-use-cases)
+16. [Security & Optimization](#16-security--optimization)
 ---
 
 ## 1. Introduction to Containers
@@ -45,7 +43,7 @@ Docker is a platform designed to simplify the process of building, deploying, an
 
 ---
 
-## Docker Components
+## 3. Docker Components
 Docker is built around a few key components that work together to enable containerization:
 
 ---
@@ -95,7 +93,9 @@ docker run myapp:1.0
 - You use Docker CLI to tell Docker Engine to start a container.
 - Docker Daemon runs that container using the image.
 
-## 3. Installing Docker
+---
+
+## 4. Installing Docker
 - [Download Docker Desktop](https://www.docker.com/products/docker-desktop) for Windows/Mac.  
 - For Linux:
   ```bash
@@ -121,7 +121,9 @@ docker run -d -p 3002:3000 --name app3 myapp:1.0
 - app1, app2, app3 are three containers running independently.
 - Containers share the same base image but run in isolated environments.
 
-## 4. Basic Docker Commands
+---
+
+## 5. Basic Docker Commands
 ```bash
 # Check Docker version
 docker --version
@@ -140,8 +142,9 @@ docker rm <container-id>
 # List images
 docker images
 ```
+---
 
-## 5. Working with Images
+## 6. Working with Images
 ```bash
 # Pull image
 docker pull nginx
@@ -152,8 +155,9 @@ docker build -t myapp:1.0 .
 # Remove image
 docker rmi <image-id>
 ```
+---
 
-## 6. Working with Containers
+## 7. Working with Containers
 ```bash
 # Run container
 docker run -d -p 8080:80 nginx
@@ -166,7 +170,7 @@ docker logs <id>
 ```
 ---
 
-## 7. Docker Image Tags
+## 8. Docker Image Tags
 Docker images are versioned and identified using **tags**. By default, if you don’t specify a tag, Docker uses `:latest`.
 
 ### Examples:
@@ -193,21 +197,24 @@ docker tag myapp:1.0 faizi/myapp:1.0
 docker pull library/redis:7
 #Good practice: Always use explicit tags (like 1.25, 2.0.1) instead of latest for production.
 ```
+---
 
-## 7. Docker Volumes
+## 9. Docker Volumes
 ```bash
 docker volume create mydata
 docker run -v mydata:/data busybox
 ```
+---
 
-## 8. Docker Networks
+## 10. Docker Networks
 ```bash
 docker network create mynet
 docker run -d --network=mynet --name=db mysql
 docker run -d --network=mynet --name=webapp nginx
 ```
+---
 
-## 9. Docker Compose
+## 11. Docker Compose
 ```bash
 version: '3'
 services:
@@ -220,8 +227,9 @@ services:
     ports:
       - "8080:80"
 ```
+---
 
-## 10. Dockerfile
+## 12. Dockerfile
 ```bash
 # Use base image
 FROM node:18
@@ -240,40 +248,33 @@ EXPOSE 3000
 # Start app
 CMD ["npm", "start"]
 ```
+---
 
-## 11. Best Practices
+## 13. Best Practices
 - Use .dockerignore to reduce image size.
 - Use multi-stage builds.
 - Keep containers small and focused.
 - Don’t store secrets inside images.
 
-## 12. Debugging & Logs
+---
+
+## 14. Debugging & Logs
 docker logs <container>
 docker inspect <container>
 docker exec -it <container> sh
 
-## 13. Real-world Use Cases
+---
+
+## 15. Real-world Use Cases
 - Running databases locally (MySQL, MongoDB).
 - Setting up CI/CD pipelines.
 - Microservices deployments.
 - Local dev environments.
 
-## 14. Docker Swarm
-docker swarm init
-docker service create --replicas 3 nginx
-
-## 15. Kubernetes Intro
-- Kubernetes (K8s) is the industry standard for orchestration.
-- Docker containers run inside Pods.
-- Tools like kubectl manage deployments.
+---
 
 ## 16. Security & Optimization
 - Always use official images.
 - Run as non-root user.
 - Scan images for vulnerabilities (docker scan).
-- Keep images minimal (e.g., alpine).
-
-## 17. Resources & Learning
-- Docker Docs
-- YouTube: TechWorld with Nana (Docker/K8s tutorials)
-- Books: Docker Deep Dive by Nigel Poulton
+- Keep images minimal.
